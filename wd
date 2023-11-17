@@ -1,4 +1,5 @@
 #!/bin/zsh
+wd(){
 declare -A drs
 conf="$HOME/.config/wd.conf"
 while read -r line
@@ -12,37 +13,38 @@ do
     drs["$name"]="$dpath"
 done < "$conf"
 if [[ "$1" == "list" ]]; then 
-for key value in ${(kv)drs}; do
-    echo "$key --> $value"
-done
+    for key value in ${(kv)drs}; do
+        echo "$key --> $value"
+    done
 elif [[ "$1" == "add" ]]; then
-echo "$2="'"'$PWD'"'"" >> $conf
+    echo "$2="'"'$PWD'"'"" >> $conf
 elif [[ "$1" == "conf" ]]; then
-nvim "$conf"
+    nvim "$conf"
 elif [[ "$1" == "ls" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-    eval "ls \"$(echo "$drs["$2"]$3")\"";
+        eval "ls $drs["$2"]$3";
     else
-    echo "This dir doesn't exist in your config"
+        echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "nvim" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-    eval "nvim \"$(echo "$drs["$2"]$3")\"";
+    eval "nvim $drs["$2"]$3";
     else
     echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "code" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-    eval "code \"$(echo "$drs["$2"]$3")\"";
+    eval "code $drs["$2"]$3";
     else
     echo "This dir doesn't exist in your config"
     fi
 elif [[ -n "${drs["$1"]}" ]]; then
-eval "cd \"$(echo "$drs["$1"]$2")\"";
+    eval "cd $drs["$1"]$2";
 else 
-echo "Type <list> to list the avalible directories"
-echo "Type <conf> to open the config file in vim"
-echo "Type <add> follwed by the name to add the current working directory (pwd) to your list"
-echo "Don't use any of the above command as an entery name as they won't work"
+    echo "Type <list> to list the avalible directories"
+    echo "Type <conf> to open the config file in vim"
+    echo "Type <add> follwed by the name to add the current working directory (pwd) to your list"
+    echo "Don't use any of the above command as an entery name as they won't work"
 fi
-unset drs conf line name dpath
+unset drs conf line name dpath key value
+}
