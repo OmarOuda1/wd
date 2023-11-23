@@ -1,0 +1,5 @@
+#compdef wd
+_wd(){
+	compadd -a dcomp 
+	compadd list add nvim code conf ls
+}
