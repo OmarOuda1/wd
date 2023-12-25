@@ -24,34 +24,34 @@ if [[ "$1" == "list" ]]; then
 elif [[ "$1" == "add" ]]; then
     echo "$2="'"'$PWD'"'"" >> $conf
 elif [[ "$1" == "conf" ]]; then
-    nvim "$conf"
+     setsid nvim "$conf"
 elif [[ "$1" == "dolphin" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-        eval "dolphin $drs["$2"]$3" &;
+        eval "setsid dolphin $drs["$2"]$3";
     else
         echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "kate" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-        eval "kate $drs["$2"]$3" &;
+        eval "setsid kate $drs["$2"]$3";
     else
         echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "ls" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-        eval "ls $drs["$2"]$3";
+        eval "setsid ls $drs["$2"]$3";
     else
         echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "nvim" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-    eval "nvim $drs["$2"]$3";
+    eval "setsid nvim $drs["$2"]$3";
     else
     echo "This dir doesn't exist in your config"
     fi
 elif [[ "$1" == "code" ]]; then
     if [[ -n "${drs["$2"]}" ]]; then
-    eval "code $drs["$2"]$3";
+    eval "setsid code $drs["$2"]$3";
     else
     echo "This dir doesn't exist in your config"
     fi
